@@ -1,26 +1,29 @@
 package com.driver;
 
-import java.util.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 @Service
 public class OrderService {
 
     @Autowired
-    OrderRepository orderRepository = new OrderRepository();
+    OrderRepository orderRepository;
 
-    public void addOrder(Order order){
+    public String addOrder(Order order){
         orderRepository.saveOrder(order);
+        return "New order added successfully";
     }
 
-    public void addPartner(String partnerId){
+    public String addPartner(String partnerId){
         orderRepository.savePartner(partnerId);
+        return "New delivery partner added successfully";
     }
 
-    public void createOrderPartnerPair(String orderId, String partnerId){
+    public String createOrderPartnerPair(String orderId, String partnerId){
         orderRepository.saveOrderPartnerMap(orderId, partnerId);
+        return "New order-partner pair added successfully";
     }
 
     public Order getOrderById(String orderId){
@@ -43,12 +46,14 @@ public class OrderService {
         return orderRepository.findAllOrders();
     }
 
-    public void deletePartner(String partnerId){
+    public String deletePartner(String partnerId){
         orderRepository.deletePartner(partnerId);
+        return partnerId + " removed successfully";
     }
 
-    public void deleteOrder(String orderId){
+    public String deleteOrder(String orderId){
         orderRepository.deleteOrder(orderId);
+        return orderId + " removed successfully";
     }
 
     public Integer getCountOfUnassignedOrders(){
